@@ -601,7 +601,11 @@ export default function App() {
       <div className="container">
         <div className="hstack" style={{ marginBottom: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src={LOGO_SKBC} alt="Logo SK Bukit China" className="h-16 w-auto" />
+            <img
+  src={LOGO_SKBC}
+  alt="Logo SK Bukit China"
+  className="h-14 w-14 object-contain shrink-0"
+/>
             <div>
               <div className="muted">Analisis & Paparan Interaktif</div>
               <h1 className="title">Dashboard PBD Matematik Tahun 2 Melor - Sesi 2025/2026</h1>
