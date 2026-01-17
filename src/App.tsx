@@ -74,7 +74,8 @@ const RAW: Row[] = [
     jantina: "L",
     tp: "TP3",
     tpLabel: "TAHAP PENGUASAAN 3",
-    ulasan: "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
+    ulasan:
+      "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
     usaha: "SEDERHANA",
   },
   {
@@ -139,7 +140,8 @@ const RAW: Row[] = [
     jantina: "L",
     tp: "TP4",
     tpLabel: "TAHAP PENGUASAAN 4",
-    ulasan: "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
+    ulasan:
+      "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
     usaha: "SEDERHANA",
   },
   {
@@ -215,7 +217,8 @@ const RAW: Row[] = [
     jantina: "P",
     tp: "TP4",
     tpLabel: "TAHAP PENGUASAAN 4",
-    ulasan: "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
+    ulasan:
+      "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
     usaha: "SEDERHANA",
   },
   {
@@ -225,7 +228,8 @@ const RAW: Row[] = [
     jantina: "P",
     tp: "TP3",
     tpLabel: "TAHAP PENGUASAAN 3",
-    ulasan: "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
+    ulasan:
+      "MURID DAPAT MENGINTEGRASIKAN DAN MENGAPLIKASI PENGETAHUAN BAHARU YANG DIPELAJARI.",
     usaha: "SEDERHANA",
   },
   {
@@ -384,7 +388,9 @@ function pickKeyInsights({
   return [
     `Taburan TP: majoriti murid berada pada ${tpMode || "(tiada)"}.`,
     `Keutamaan intervensi: ${lowTP} murid (TP2–TP3) perlukan bimbingan berfokus; ${highTP} murid (TP5–TP6) sesuai untuk pengayaan.`,
-    `Usaha dominan: ${usahaMode || "(tiada)"}. Nisbah jantina: L ${lelaki} / P ${perempuan}. Purata TP (penapis semasa): ${avgTP.toFixed(2)}.`,
+    `Usaha dominan: ${usahaMode || "(tiada)"}. Nisbah jantina: L ${lelaki} / P ${perempuan}. Purata TP (penapis semasa): ${avgTP.toFixed(
+      2
+    )}.`,
   ];
 }
 
@@ -399,22 +405,22 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-  const q = query.trim().toLowerCase();
+    const q = query.trim().toLowerCase();
 
-  return RAW.filter((r) => {
-    const okGender = gender === "SEMUA" ? true : r.jantina === gender;
-    const okTP = tpFilter === "SEMUA" ? true : r.tp === tpFilter;
-    const okUsaha = usahaFilter === "SEMUA" ? true : r.usaha === usahaFilter;
+    return RAW.filter((r) => {
+      const okGender = gender === "SEMUA" ? true : r.jantina === gender;
+      const okTP = tpFilter === "SEMUA" ? true : r.tp === tpFilter;
+      const okUsaha = usahaFilter === "SEMUA" ? true : r.usaha === usahaFilter;
 
-    const okQ =
-      !q ||
-      r.nama.toLowerCase().includes(q) ||
-      shortName(r.nama).toLowerCase().includes(q) ||
-      r.ulasan.toLowerCase().includes(q);
+      const okQ =
+        !q ||
+        r.nama.toLowerCase().includes(q) ||
+        shortName(r.nama).toLowerCase().includes(q) ||
+        r.ulasan.toLowerCase().includes(q);
 
-    return okGender && okTP && okUsaha && okQ;
-  });
-}, [gender, tpFilter, usahaFilter, query]);
+      return okGender && okTP && okUsaha && okQ;
+    });
+  }, [gender, tpFilter, usahaFilter, query]);
 
   const stats = useMemo(() => {
     const total = filtered.length;
@@ -569,7 +575,12 @@ export default function App() {
         .card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; box-shadow: 0 8px 18px rgba(0,0,0,.04); }
         .row { display:flex; gap:10px; flex-wrap:wrap; }
         .hstack { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-        .title { font-size: 22px; font-weight: 900; margin: 0; }
+
+        /* ✅ HEADER FIX (no tailwind) */
+        .headerLeft { display:flex; align-items:center; gap:12px; }
+        .logo { width:64px; height:64px; object-fit:contain; flex:0 0 auto; }
+
+        .title { font-size: 22px; font-weight: 900; margin: 0; line-height: 1.15; }
         .muted { color:#6b7280; font-size: 12px; }
         .btn { padding:10px 12px; border-radius:12px; border:1px solid #e5e7eb; background:#fff; cursor:pointer; font-weight:800; }
         .btnPrimary { background:#111827; color:#fff; border-color:#111827; }
@@ -586,10 +597,15 @@ export default function App() {
         thead th { background:#f3f4f6; text-align:left; font-size:12px; color:#6b7280; border-top:0; }
         .tag { display:inline-block; padding:3px 8px; border:1px solid #e5e7eb; border-radius:999px; font-size:12px; font-weight:800; }
         .tagRed { border-color:#fecaca; background:#fee2e2; color:#b91c1c; }
+
         @media (max-width: 980px) {
           .grid4 { grid-template-columns: repeat(2, 1fr); }
           .grid12 { grid-template-columns: repeat(1, 1fr); }
           .span7, .span5, .span6, .span12, .span4 { grid-column: span 1; }
+
+          /* ✅ Header responsive */
+          .logo { width:48px; height:48px; }
+          .title { font-size: 18px; }
         }
         @media print {
           .noPrint { display:none !important; }
@@ -600,15 +616,14 @@ export default function App() {
 
       <div className="container">
         <div className="hstack" style={{ marginBottom: 12 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img
-  src={LOGO_SKBC}
-  alt="Logo SK Bukit China"
-  className="h-14 w-14 object-contain shrink-0"
-/>
+          {/* ✅ Updated header */}
+          <div className="headerLeft">
+            <img src={LOGO_SKBC} alt="Logo SK Bukit China" className="logo" />
             <div>
               <div className="muted">Analisis & Paparan Interaktif</div>
-              <h1 className="title">Dashboard PBD Matematik Tahun 2 Melor - Sesi 2025/2026</h1>
+              <h1 className="title">
+                Dashboard PBD Matematik Tahun 2 Melor - Sesi 2025/2026
+              </h1>
               <div className="muted">
                 Data: {RAW.length} murid • Penapis semasa: {filtered.length} murid
               </div>
@@ -863,8 +878,18 @@ export default function App() {
                   <YAxis allowDecimals={false} />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="Lelaki" stackId="a" radius={[10, 10, 0, 0]} fill={COLORS.TP4} />
-                  <Bar dataKey="Perempuan" stackId="a" radius={[10, 10, 0, 0]} fill="#f472b6" />
+                  <Bar
+                    dataKey="Lelaki"
+                    stackId="a"
+                    radius={[10, 10, 0, 0]}
+                    fill={COLORS.TP4}
+                  />
+                  <Bar
+                    dataKey="Perempuan"
+                    stackId="a"
+                    radius={[10, 10, 0, 0]}
+                    fill="#f472b6"
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -900,9 +925,12 @@ export default function App() {
                       const p = payload[0].payload;
                       return (
                         <div className="tt" style={{ maxWidth: 320 }}>
-                          <div style={{ fontWeight: 900, marginBottom: 6 }}>{shortName(p.nama)}</div>
+                          <div style={{ fontWeight: 900, marginBottom: 6 }}>
+                            {shortName(p.nama)}
+                          </div>
                           <div className="muted">
-                            Jantina: {p.jantina} • TP: {p.tpText} • Usaha: {p.usahaText}
+                            Jantina: {p.jantina} • TP: {p.tpText} • Usaha:{" "}
+                            {p.usahaText}
                           </div>
                         </div>
                       );
@@ -944,7 +972,13 @@ export default function App() {
             </div>
           </div>
 
-          <div style={{ overflowX: "auto", border: "1px solid #e5e7eb", borderRadius: 14 }}>
+          <div
+            style={{
+              overflowX: "auto",
+              border: "1px solid #e5e7eb",
+              borderRadius: 14,
+            }}
+          >
             <table>
               <thead>
                 <tr>
@@ -960,16 +994,23 @@ export default function App() {
                 {filtered.map((r) => {
                   const isIntervensi = r.tp === "TP2" || r.tp === "TP3";
                   return (
-                    <tr key={r.bil} style={isIntervensi ? { background: "#fff1f2" } : undefined}>
+                    <tr
+                      key={r.bil}
+                      style={isIntervensi ? { background: "#fff1f2" } : undefined}
+                    >
                       <td className="muted">{r.bil}</td>
                       <td>
                         <div style={{ fontWeight: 900 }}>{shortName(r.nama)}</div>
                         <div className="muted">{r.kelas}</div>
-                        {isIntervensi ? <span className="tag tagRed">INTERVENSI (TP2–TP3)</span> : null}
+                        {isIntervensi ? (
+                          <span className="tag tagRed">INTERVENSI (TP2–TP3)</span>
+                        ) : null}
                       </td>
                       <td>{r.jantina}</td>
                       <td>
-                        <span className={"tag " + (isIntervensi ? "tagRed" : "")}>{r.tp}</span>
+                        <span className={"tag " + (isIntervensi ? "tagRed" : "")}>
+                          {r.tp}
+                        </span>
                       </td>
                       <td>
                         <span className="tag">{r.usaha}</span>
@@ -980,7 +1021,11 @@ export default function App() {
                 })}
                 {!filtered.length ? (
                   <tr>
-                    <td colSpan={6} style={{ padding: 18, textAlign: "center" }} className="muted">
+                    <td
+                      colSpan={6}
+                      style={{ padding: 18, textAlign: "center" }}
+                      className="muted"
+                    >
                       Tiada data dipadankan. Cuba tukar penapis atau kata kunci carian.
                     </td>
                   </tr>
