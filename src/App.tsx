@@ -569,10 +569,10 @@ export default function App() {
     <div className={"wrap" + (printMode ? " print" : "")}>
       <style>{`
         :root { font-family: system-ui, Arial; }
-        .wrap { min-height: 100vh; padding: 18px; background: linear-gradient(135deg,#eaf2ff,#ffffff,#eafff1); }
+        .wrap { min-height: 100vh; padding: 18px; background: linear-gradient(135deg, #fff9db 0%, #ffffff 50%, #fff3bf 100%); }
         .print { background: #fff; }
         .container { max-width: 1180px; margin: 0 auto; }
-        .card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; box-shadow: 0 8px 18px rgba(0,0,0,.04); }
+        .card { background:#ffffffcc; border:1px solid #e5e7eb; ... }
         .row { display:flex; gap:10px; flex-wrap:wrap; }
         .hstack { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 
