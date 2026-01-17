@@ -399,18 +399,22 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return RAW.filter((r) => {
-      const okGender = gender === "SEMUA" ? true : r.jantina === gender;
-      const okTP = tpFilter === "SEMUA" ? true : r.tp === tpFilter;
-      const okUsaha = usahaFilter === "SEMUA" ? true : r.usaha === usahaFilter;
-      const okQ =
-  !q ||
-  r.nama.toLowerCase().includes(q) ||
-  shortName(r.nama).toLowerCase().includes(q) ||
-  r.ulasan.toLowerCase().includes(q);
-    });
-  }, [gender, tpFilter, usahaFilter, query]);
+  const q = query.trim().toLowerCase();
+
+  return RAW.filter((r) => {
+    const okGender = gender === "SEMUA" ? true : r.jantina === gender;
+    const okTP = tpFilter === "SEMUA" ? true : r.tp === tpFilter;
+    const okUsaha = usahaFilter === "SEMUA" ? true : r.usaha === usahaFilter;
+
+    const okQ =
+      !q ||
+      r.nama.toLowerCase().includes(q) ||
+      shortName(r.nama).toLowerCase().includes(q) ||
+      r.ulasan.toLowerCase().includes(q);
+
+    return okGender && okTP && okUsaha && okQ;
+  });
+}, [gender, tpFilter, usahaFilter, query]);
 
   const stats = useMemo(() => {
     const total = filtered.length;
