@@ -30,7 +30,7 @@ type Row = {
   usaha: Usaha;
 };
 
-const LOGO_SKBC = "/logo-skbc.png";
+const LOGO_SKBC = `${import.meta.env.BASE_URL}logo-skbc.png`;
 
 // ✅ DATA 25 MURID (2 MELOR)
 const RAW: Row[] = [
@@ -601,7 +601,7 @@ export default function App() {
       <div className="container">
         <div className="hstack" style={{ marginBottom: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src={LOGO_SKBC} alt="Logo SK Bukit China" style={{ height: 52 }} />
+            <img src={LOGO_SKBC} alt="Logo SK Bukit China" className="h-16 w-auto" />
             <div>
               <div className="muted">Analisis & Paparan Interaktif</div>
               <h1 className="title">Dashboard PBD Matematik Tahun 2 Melor - Sesi 2025/2026</h1>
